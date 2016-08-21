@@ -20,6 +20,7 @@ body {
   height: 200px;
 }
 #home {
+  position: absolute;
   width: 600px;
   height: 600px;
 }

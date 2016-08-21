@@ -2,6 +2,10 @@ var Vue = new Vue({
 	el: '#app',
 
 	data: {
+		viewpoint: {
+			x: 0,
+			y: 0
+		},
 		solarsystem: {
 			width: 1000,
 			height: 1000
@@ -35,6 +39,7 @@ var Vue = new Vue({
 		},
 		renderScreen: function () {
 			this.setPositions();
+			this.renderPlanets();
 
 			$('#spaceship').css('left', this.spaceship.left  - $('#spaceship').width() / 2 + 'px');
 			$('#spaceship').css('top', this.spaceship.top - $('#spaceship').height() * 3/4 + 'px');
@@ -42,7 +47,7 @@ var Vue = new Vue({
 		},
 		renderPlanets: function(){
 			$('#home').css('left', this.planets.home.left  - $('#home').width() / 2 + 'px');
-			$('#home').css('top', this.planets.home.top - $('#home').height() /2 + 'px');
+			$('#home').css('top', this.planets.home.top - $('#home').height() / 2 + 'px');
 		},
 		mouseMove: function (event) {
 			mouseX = event.clientX;
@@ -52,7 +57,6 @@ var Vue = new Vue({
 			distanceX = this.spaceship.left - mouseX;
 
 			this.spaceship.angle = - Math.atan2(distanceX, distanceY) * 180 / Math.PI;
-			console.log(this.spaceship.angle);
 		}
 	}
 });
