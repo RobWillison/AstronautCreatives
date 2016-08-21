@@ -19,10 +19,15 @@
 <script src = "scripts/lib/vue.js"></script>
 
 <body>
-<div id="app">
+<div @mousemove="mouseMove" id="app">
+    <div id="spaceship">
+        <img id="spaceship-image" src="image/space-ship.svg"/>
+    </div>
 
+    <div id="home">
+        <img id="home-image" src="image/home-planet.svg"/>
+    </div>
 </div>
 </body>
-
 <script src="scripts/app/main.js"></script>
 </html>
