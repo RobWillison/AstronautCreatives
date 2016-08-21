@@ -2,6 +2,8 @@ body {
   background-color: #05000f;
   overflow-x: hidden;
   overflow-y: hidden;
+  background-image: url(../image/Astronaughts-StarrySky.svg);
+  background-repeat: repeat;
 }
 
 #app {
