@@ -18,18 +18,19 @@ var Vue = new Vue({
 		spaceship: {
 			left: 0,
 			top: 0,
-			angle: 0
+			angle: 0,
+			speed: 5,
 		}
 	},
 
 	ready: function () {
-		var timer = setInterval(this.renderScreen, 30);
+		setInterval(this.renderScreen, 50);
 	},
 
 	methods: {
 		setPositions: function () {
-			this.solarsystem.width = $(window).width() * 5;
-			this.solarsystem.height = $(window).height() * 5;
+			this.solarsystem.width = $(window).width() * 2;
+			this.solarsystem.height = $(window).height() * 2;
 
 			this.planets.home.top = this.solarsystem.height / 2;
 			this.planets.home.left = this.solarsystem.width / 2;
@@ -41,13 +42,27 @@ var Vue = new Vue({
 			this.setPositions();
 			this.renderPlanets();
 
+			stepX = Math.sin(this.spaceship.angle * Math.PI / 180) * this.spaceship.speed;
+			stepY = - Math.cos(this.spaceship.angle * Math.PI / 180) * this.spaceship.speed;
+
+			this.viewpoint.x += stepX;
+			this.viewpoint.y += stepY;
+
+			console.log(this.planets.home.left - this.viewpoint.x, this.planets.home.top - this.viewpoint.y);
+
 			$('#spaceship').css('left', this.spaceship.left  - $('#spaceship').width() / 2 + 'px');
 			$('#spaceship').css('top', this.spaceship.top - $('#spaceship').height() * 3/4 + 'px');
 			$('#spaceship').css('transform', 'rotate(' + this.spaceship.angle + 'deg)');
 		},
 		renderPlanets: function(){
-			$('#home').css('left', this.planets.home.left  - $('#home').width() / 2 + 'px');
-			$('#home').css('top', this.planets.home.top - $('#home').height() / 2 + 'px');
+			$('#home').css('left', this.planets.home.left - this.viewpoint.x  - $('#home').width() / 2 + 'px');
+			$('#home').css('top', this.planets.home.top - this.viewpoint.y - $('#home').height() / 2 + 'px');
+
+			$('#background-back').css('left', - this.viewpoint.x / 3 +'px');
+			$('#background-back').css('top', - this.viewpoint.y / 3 + 'px');
+
+			$('#background-front').css('left', - this.viewpoint.x / 2 +'px');
+			$('#background-front').css('top', - this.viewpoint.y / 2 + 'px');
 		},
 		mouseMove: function (event) {
 			mouseX = event.clientX;

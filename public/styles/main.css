@@ -2,8 +2,27 @@ body {
   background-color: #05000f;
   overflow-x: hidden;
   overflow-y: hidden;
-  background-image: url(../image/Astronaughts-StarrySky.svg);
+
+}
+
+#background-back {
+  position: absolute;
+  height: 500%;
+  width: 500%;
+
+  background-image: url(../image/Astronauts-StarrySkyBack.svg);
   background-repeat: repeat;
+  background-size: 1000px;
+}
+
+#background-front {
+  position: absolute;
+  height: 500%;
+  width: 500%;
+
+  background-image: url(../image/Astronauts-StarrySkyFront.svg);
+  background-repeat: repeat;
+  background-size: 1000px;
 }
 
 #app {
