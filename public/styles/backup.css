@@ -1,0 +1,180 @@
+body {
+
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.menudiv {
+  position: absolute;
+  width: 30vw;
+  height: 30vw;
+  left: 35vw;
+  top: 20vh;
+}
+
+.glyphicon {
+    font-size: 50px;
+}
+
+.menuoverlaytext {
+  text-align: center;
+  padding-top: 5.5vw;
+  font-size: 50;
+  font-family: 'Droid Sans';
+  color: #ffffff;
+}
+
+.backButton {
+	height: 5em;
+}
+
+.cog-image {
+	width: 15vw;
+	height: 15vw;
+	border-radius: 100%;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+}
+
+.menuoverlay {
+	background-color: #000000;
+	position: absolute;
+  top:0;
+  left:1em;
+
+  opacity:0.5;
+
+	width: 15vw;
+	height: 15vw;
+
+	border-radius: 100%;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+}
+
+.page {
+	position: absolute;
+	top: 0vh;
+  left: 30vw;
+  width: 40vw;
+}
+
+.pagetext {
+	margin-top: 5em;
+	font-family: 'Droid Sans';
+}
+
+.pageimage {
+	width: 25em;
+	height: 25em;
+	border-radius: 5%;
+	-webkit-border-radius: 5%;
+	-moz-border-radius: 5%;
+}
+
+@keyframes rotateleftleave {
+  from, 50%, to {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.rotateleftleave {
+  animation-name: rotateleftleave;
+}
+
+@keyframes rotateOut {
+  from {
+    transform-origin: center;
+    opacity: 1;
+  }
+
+  to {
+    transform-origin: center;
+    transform: rotate3d(0, 0, 1, 200deg);
+    opacity: 0;
+  }
+}
+
+
+
+@keyframes rotateleftout {
+  from { transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  to { transform: translate3d(-100vw, 0, 0) rotate(-360deg);
+  }
+}
+@keyframes rotateleftout {
+  from { transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  to { transform: translate3d(-100vw, 0, 0) rotate(-360deg);
+  }
+}
+
+.rotaterightleave {
+  animation-name: rotateleftleave;
+}
+
+
+@-webkit-keyframes rotaterightout {
+  from { transform: translate3d(0, 0, 0) rotate(0deg);}
+  to { transform: translate3d(100vw, 0, 0) rotate(360deg);}
+}
+
+.rotateleftenter {
+  animation-name: rotateleftin;
+}
+
+
+@keyframes rotateleftin {
+  from { transform: translate3d(-100vw, 0, 0) rotate(0deg);
+  }
+  to { transform: translate3d(0, 0, 0) rotate(360deg);
+  }
+}
+
+.rotaterightenter {
+  animation-name: rotaterightin;
+}
+
+
+@keyframes rotaterightin {
+  from { transform: translate3d(150vw, 0, 0) rotate(0deg);
+  }
+  to { transform: translate3d(0, 0, 0) rotate(-360deg);
+  }
+}
+
+.slideinup {
+  animation-delay: 0.5s;
+  animation-name: slideinup;
+}
+
+@keyframes slideinup {
+  from {
+    transform: translate3d(0, 150vh, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 10vh, 0);
+  }
+}
+
+.slideoutdown {
+  animation-name: slideoutdown;
+}
+
+@keyframes slideoutdown {
+  from {
+    transform: translate3d(0, 10vh, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(0, 150vh, 0);
+  }
+}

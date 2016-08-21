@@ -1,0 +1,19 @@
+{
+    "name": "rob/india",
+    "require": {
+        "slim/slim-skeleton": "^3.0",
+        "phpmailer/phpmailer": "^5.2"
+    },
+    "authors": [
+        {
+            "name": "Rob Willison",
+            "email": "rob.willison@mayden.co.uk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "India\\Dao\\": "src/dao/",
+            "India\\Services\\": "src/services/"
+        }
+    }
+}
