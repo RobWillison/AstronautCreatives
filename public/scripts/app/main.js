@@ -19,7 +19,7 @@ var Vue = new Vue({
 			left: 0,
 			top: 0,
 			angle: 0,
-			speed: 5,
+			speed: 10,
 		}
 	},
 
@@ -29,8 +29,8 @@ var Vue = new Vue({
 
 	methods: {
 		setPositions: function () {
-			this.solarsystem.width = $(window).width() * 2;
-			this.solarsystem.height = $(window).height() * 2;
+			this.solarsystem.width = $(window).width() * 3;
+			this.solarsystem.height = $(window).height() * 3;
 
 			this.planets.home.top = this.solarsystem.height / 2;
 			this.planets.home.left = this.solarsystem.width / 2;
@@ -44,6 +44,13 @@ var Vue = new Vue({
 
 			stepX = Math.sin(this.spaceship.angle * Math.PI / 180) * this.spaceship.speed;
 			stepY = - Math.cos(this.spaceship.angle * Math.PI / 180) * this.spaceship.speed;
+
+			if (this.viewpoint.x <= 0) { this.viewpoint.x = 0}
+			if (this.viewpoint.x >= this.solarsystem.width - $(window).width()) { this.viewpoint.x = this.solarsystem.width - $(window).width()}
+			if (this.viewpoint.y <= 0) { this.viewpoint.y = 0}
+			if (this.viewpoint.y >= this.solarsystem.height - $(window).height()) { this.viewpoint.y = this.solarsystem.height - $(window).height()}
+
+
 
 			this.viewpoint.x += stepX;
 			this.viewpoint.y += stepY;
