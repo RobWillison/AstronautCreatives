@@ -55,8 +55,6 @@ var Vue = new Vue({
 			this.viewpoint.x += stepX;
 			this.viewpoint.y += stepY;
 
-			console.log(this.planets.home.left - this.viewpoint.x, this.planets.home.top - this.viewpoint.y);
-
 			$('#spaceship').css('left', this.spaceship.left  - $('#spaceship').width() / 2 + 'px');
 			$('#spaceship').css('top', this.spaceship.top - $('#spaceship').height() * 3/4 + 'px');
 			$('#spaceship').css('transform', 'rotate(' + this.spaceship.angle + 'deg)');
@@ -79,6 +77,12 @@ var Vue = new Vue({
 			distanceX = this.spaceship.left - mouseX;
 
 			this.spaceship.angle = - Math.atan2(distanceX, distanceY) * 180 / Math.PI;
-		}
+		},
+		mouseDown: function (event) {
+			this.spaceship.speed=20;
+		},
+		mouseUp: function (event) {
+			this.spaceship.speed=10;
+		},
 	}
 });
