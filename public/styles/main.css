@@ -56,10 +56,47 @@ body {
   width: 50px;
   height: 200px;
 }
+
 #home {
   position: absolute;
   width: 600px;
   height: 600px;
+}
+
+#portfolio {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+}
+
+#contact {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+}
+
+#team {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+}
+
+#team-m1 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+#team-m2 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+#team-m3 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
 }
 
 .navbar {

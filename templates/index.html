@@ -51,15 +51,36 @@
     <div id="background-front">
     </div>
 
-    <div id="spaceship">
-        <img id="spaceship-image" src="image/space-ship.svg"/>
-    </div>
-
-    <div id="home">
+    <div v-bind:style="{ top: planets.home.top + 'px', left: planets.home.left + 'px'}" id="home">
         <img id="home-image" src="image/Astronauts-HomePlanet.svg"/>
     </div>
 
-    <div id="">
+    <div v-bind:style="{ top: planets.contact.top + 'px', left: planets.contact.left + 'px'}" id="contact">
+        <img id="contact-image" src="image/Astronauts-ContactPlanet.svg"/>
+    </div>
+
+    <div v-bind:style="{ top: planets.portfolio.top + 'px', left: planets.portfolio.left + 'px'}" id="portfolio">
+        <img id="portfolio-image" src="image/Astronauts-PastProjectsPlanet.svg"/>
+    </div>
+
+    <div v-bind:style="{ top: planets.team.top + 'px', left: planets.team.left + 'px'}" id="team">
+        <img id="team-image" src="image/Astronauts-TeamPlanet.svg"/>
+    </div>
+
+    <div v-bind:style="{ top: planets.teamm1.top + 'px', left: planets.teamm1.left + 'px'}" id="team-m1">
+        <img id="team-m1-image" src="image/Astronauts-TeamMoon1.svg"/>
+    </div>
+
+    <div v-bind:style="{ top: planets.teamm2.top + 'px', left: planets.teamm2.left + 'px'}" id="team-m2">
+        <img id="team-m2-image" src="image/Astronauts-TeamMoon2.svg"/>
+    </div>
+
+    <div v-bind:style="{ top: planets.teamm3.top + 'px', left: planets.teamm3.left + 'px'}" id="team-m3">
+        <img id="team-m3-image" src="image/Astronauts-TeamMoon3.svg"/>
+    </div>
+
+    <div v-bind:style="{ top: spaceship.top + 'px', left: spaceship.left + 'px', transform: 'rotate(' + spaceship.angle + 'deg)'}" id="spaceship">
+        <img id="spaceship-image" src="image/space-ship.svg"/>
     </div>
 </div>
 </body>
