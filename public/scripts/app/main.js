@@ -142,12 +142,13 @@ var Vue = new Vue({
 				a += 360;
 			}
 
-			console.log(a);
 
-			if (a < -5) {
-				this.spaceship.angle -= 5;
-			} else if (a > 5){
-				this.spaceship.angle += 5;
+			if (!this.orbiting) {
+				if (a < -5) {
+					this.spaceship.angle -= 5;
+				} else if (a > 5) {
+					this.spaceship.angle += 5;
+				}
 			}
 
 			this.spaceship.left = this.spaceship.x  - $('#spaceship').width() / 2;
@@ -186,6 +187,7 @@ var Vue = new Vue({
 			}
 		},
 		orbit: function (event) {
+			this.orbiting = true;
 
 			planet = $(event.srcElement).context.id;
 			planet = planet.replace('-image', '');
@@ -204,48 +206,73 @@ var Vue = new Vue({
 			var self = this;
 			var initialShipHeight = this.spaceship.height;
 			var initialShipWidth = this.spaceship.width;
-			var animationConfig = {
+			this.animationConfig = {
 				scaleHeightStep: (initialShipHeight * 0.25) / (adjacent / self.spaceship.speed),
-				scaleWidthStep: (initialShipWidth * 0.25) / (adjacent / self.spaceship.speed)
-			}
+				scaleWidthStep: (initialShipWidth * 0.25) / (adjacent / self.spaceship.speed),
+				initialShipHeight: initialShipHeight,
+				initialShipWidth: initialShipWidth
+			};
 
 			orbitAnimation = function () {
+				angleDiffrence = 90 - Math.asin(planet.radius * (Math.atan(self.spaceship.speed / planet.radius) / self.spaceship.speed)) * 180/Math.PI;
+				self.spaceship.angle -= angleDiffrence;
+
+				self.spaceship.speed = 10;
+
+				self.renderScreen();
+			};
+
+			enterOrbitAnimation = function () {
 				if (adjacent < 0) {
+					clearInterval(self.animationFunction);
+					self.animationFunction = setInterval(orbitAnimation, 50);
 					return;
 				}
-				
-				//so in adjacent pixels drop to 1/4 size
-				scaleSpeed = 0.25 / (adjacent / self.spaceship.speed);
 
-				self.spaceship.height -= animationConfig.scaleHeightStep;
-				self.spaceship.width -= animationConfig.scaleWidthStep;
+				self.spaceship.height -= self.animationConfig.scaleHeightStep;
+				self.spaceship.width -= self.animationConfig.scaleWidthStep;
 
 				adjacent -= self.spaceship.speed;
 
-				stepX = Math.sin(self.spaceship.angle * Math.PI / 180) * self.spaceship.speed;
-				stepY = - Math.cos(self.spaceship.angle * Math.PI / 180) * self.spaceship.speed;
-
-				self.spaceship.x += stepX;
-				self.spaceship.y += stepY;
-
-
-				self.spaceship.left = self.spaceship.x  - self.spaceship.width / 2;
-				self.spaceship.top = self.spaceship.y - self.spaceship.height / 2
-			}
+				self.renderScreen();
+			};
 
 			clearInterval(this.animationFunction);
-			this.animationFunction = setInterval(orbitAnimation, 50);
+			this.animationFunction = setInterval(enterOrbitAnimation, 50);
 
 
 			//apply transform to start of orbit
 			//rotate around planet
+		},
+		exitorbit: function() {
+			this.orbiting = false;
+			var self = this;
+			var exitOrbitAnimation = function () {
 
-			
+				if (self.spaceship.height == self.animationConfig.initialShipHeight) {
+					clearInterval(self.animationFunction);
+					self.animationFunction = setInterval(self.renderScreen, 50);
+				}
+
+				self.spaceship.height += self.animationConfig.scaleHeightStep;
+				self.spaceship.width += self.animationConfig.scaleWidthStep;
+
+				self.renderScreen();
+
+			}
+
+			clearInterval(this.animationFunction);
+			this.animationFunction = setInterval(exitOrbitAnimation, 50);
 		},
 		mouseDown: function (event) {
 			this.spaceship.speed=20;
 		},
 		mouseUp: function (event) {
+			if (this.orbiting) {
+				this.exitorbit();
+				return;
+			}
+
 			this.spaceship.speed=10;
 		},
 	}
