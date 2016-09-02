@@ -98,8 +98,10 @@ var Vue = new Vue({
 
 	methods: {
 		setPositions: function () {
-			this.solarsystem.width = $(window).width() * 3;
-			this.solarsystem.height = $(window).height() * 3;
+			viewpoint = $('#cornermarker').offset();
+
+			this.solarsystem.width = viewpoint.left * 5;
+			this.solarsystem.height = viewpoint.top * 3;
 
 			for (var planet in this.planets) {
 				planet = this.planets[planet];
@@ -109,8 +111,8 @@ var Vue = new Vue({
 				planet.radius = $(planet.el).width() / 2;
 			}
 
-			this.spaceship.x = $(window).width() / 2;
-			this.spaceship.y = $(window).height() / 2;
+			this.spaceship.x = viewpoint.left / 2;
+			this.spaceship.y = viewpoint.top / 2;
 		},
 		renderScreen: function () {
 			this.setPositions();
@@ -151,8 +153,8 @@ var Vue = new Vue({
 				}
 			}
 
-			this.spaceship.left = this.spaceship.x  - $('#spaceship').width() / 2;
-			this.spaceship.top = this.spaceship.y - $('#spaceship').height() / 2;
+			this.spaceship.left = this.spaceship.x  - this.spaceship.width / 2;
+			this.spaceship.top = this.spaceship.y - this.spaceship.height;
 
 		},
 		renderPlanets: function(){
@@ -187,26 +189,32 @@ var Vue = new Vue({
 			}
 		},
 		orbit: function (event) {
-			this.orbiting = true;
 
 			planet = $(event.srcElement).context.id;
 			planet = planet.replace('-image', '');
 			planet = this.planets[planet];
-			console.log(planet);
+
+			if (planet == undefined) {
+				return;
+			}
+
+			this.orbiting = true;
+
 			//point at center of planet.
 			this.spaceship.angle = - Math.atan2(this.spaceship.x - (planet.x - this.viewpoint.x), this.spaceship.y - (planet.y - this.viewpoint.y)) * 180/Math.PI;
 
 			oposite = planet.radius;
-			adjacent = Math.sqrt(Math.pow(this.spaceship.x - (planet.x - this.viewpoint.x), 2) + Math.pow(this.spaceship.y - (planet.y - this.viewpoint.y), 2))
+			adjacent = Math.sqrt(Math.pow(this.spaceship.x - (planet.x - this.viewpoint.x), 2) + Math.pow(this.spaceship.y - (planet.y - this.viewpoint.y), 2));
 
 			adjustmentAngle = Math.atan2(oposite, adjacent) * 180/Math.PI;
-			console.log(planet.radius, adjustmentAngle);
+
 			this.spaceship.angle += adjustmentAngle;
 
 			var self = this;
 			var initialShipHeight = this.spaceship.height;
 			var initialShipWidth = this.spaceship.width;
 			this.animationConfig = {
+				adjustmentAngle: adjustmentAngle,
 				scaleHeightStep: (initialShipHeight * 0.25) / (adjacent / self.spaceship.speed),
 				scaleWidthStep: (initialShipWidth * 0.25) / (adjacent / self.spaceship.speed),
 				initialShipHeight: initialShipHeight,
@@ -214,18 +222,32 @@ var Vue = new Vue({
 			};
 
 			orbitAnimation = function () {
-				angleDiffrence = 90 - Math.asin(planet.radius * (Math.atan(self.spaceship.speed / planet.radius) / self.spaceship.speed)) * 180/Math.PI;
+
+				self.spaceship.speed = 150;
+				self.animationConfig.orbitRadius = 150;
+
+
+
+				angleDiffrence = 90 - Math.acos(Math.pow(self.spaceship.speed, 2) / (2 * self.spaceship.speed * self.animationConfig.orbitRadius)) * 180/Math.PI;
+
+
+
+				console.log(angleDiffrence);
 				self.spaceship.angle -= angleDiffrence;
 
-				self.spaceship.speed = 10;
-
 				self.renderScreen();
+
+
 			};
 
 			enterOrbitAnimation = function () {
+
 				if (adjacent < 0) {
+					//self.spaceship.angle -= self.animationConfig.adjustmentAngle;
+					self.animationConfig.orbitRadius = planet.radius / 2;
+					console.log(self.animationConfig.orbitRadius);
 					clearInterval(self.animationFunction);
-					self.animationFunction = setInterval(orbitAnimation, 50);
+					self.animationFunction = setInterval(orbitAnimation, 500);
 					return;
 				}
 
@@ -269,7 +291,8 @@ var Vue = new Vue({
 		},
 		mouseUp: function (event) {
 			if (this.orbiting) {
-				this.exitorbit();
+				//Not sure if we want this
+				//this.exitorbit();
 				return;
 			}
 

@@ -82,6 +82,8 @@
     <div @click="orbit" v-bind:style="{height: (spaceship.height * 2) + 'px', width: spaceship.width + 'px', top: spaceship.top + 'px', left: spaceship.left + 'px', transform: 'rotate(' + spaceship.angle + 'deg)'}" id="spaceship">
         <img v-bind:style="{height: spaceship.height + 'px', width: spaceship.width + 'px', 'margin-top': spaceship.height + 'px'}" id="spaceship-image" src="image/space-ship.svg" draggable="false"/>
     </div>
+
+    <div id="cornermarker"></div>
 </div>
 </body>
 <script src="scripts/app/main.js"></script>
