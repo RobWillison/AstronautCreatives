@@ -154,7 +154,7 @@ var Vue = new Vue({
 			}
 
 			this.spaceship.left = this.spaceship.x  - this.spaceship.width / 2;
-			this.spaceship.top = this.spaceship.y - this.spaceship.height;
+			this.spaceship.top = this.spaceship.y - this.spaceship.height * 1.5;
 
 		},
 		renderPlanets: function(){
@@ -223,20 +223,13 @@ var Vue = new Vue({
 
 			orbitAnimation = function () {
 
-				self.spaceship.speed = 150;
-				self.animationConfig.orbitRadius = 150;
-
-
+				self.spaceship.speed = 10;
 
 				angleDiffrence = 90 - Math.acos(Math.pow(self.spaceship.speed, 2) / (2 * self.spaceship.speed * self.animationConfig.orbitRadius)) * 180/Math.PI;
 
-
-
-				console.log(angleDiffrence);
-				self.spaceship.angle -= angleDiffrence;
+				self.spaceship.angle -= angleDiffrence * 1.9;
 
 				self.renderScreen();
-
 
 			};
 
@@ -244,10 +237,10 @@ var Vue = new Vue({
 
 				if (adjacent < 0) {
 					//self.spaceship.angle -= self.animationConfig.adjustmentAngle;
-					self.animationConfig.orbitRadius = planet.radius / 2;
-					console.log(self.animationConfig.orbitRadius);
+					self.animationConfig.orbitRadius = planet.radius;
+
 					clearInterval(self.animationFunction);
-					self.animationFunction = setInterval(orbitAnimation, 500);
+					self.animationFunction = setInterval(orbitAnimation, 50);
 					return;
 				}
 
